@@ -1,0 +1,44 @@
+
+
+// Test the Stripe API in Isolation // FOR PROCESSING PAYMENTS // USING CURL
+
+
+npm install --save stripe
+
+
+// RUN FIRST CODE SNIPPETS THRU THE COMMAND LINE EX:
+
+curl https://api.stripe.com/v1/products \
+  -u sk_test_4eC39HqLyjWDarjtT1zdp7dc: \
+  -d name="Blue banana"
+
+
+// FROM THE PRINT OUT JSON RESULT in the command line
+// Copy the ID PRODUCT and use it in the next code snippet.EX:
+
+curl https://api.stripe.com/v1/prices \
+  -u sk_test_4eC39HqLyjWDarjtT1zdp7dc: \
+  -d product="prod_KGkm7cMPjdaAN3" \
+  -d unit_amount=2000 \
+  -d currency=usd
+
+
+// FROM THE SECOND PRINT OUT JSON RESULT in the command line
+// Copy the ID PRICE and RUN it in the next code snippet. EX:
+
+curl https://api.stripe.com/v1/checkout/sessions \
+  -u sk_test_4eC39HqLyjWDarjtT1zdp7dc: \
+  -d "payment_method_types[]"=card \
+  -d "line_items[][price]"="price_1JcDKB2eZvKYlo2Co6RoF5Gv" \
+  -d "line_items[][quantity]"=1 \
+  -d mode=payment \
+  -d success_url="https://example.com/success?session_id={CHECKOUT_SESSION_ID}" \
+  -d cancel_url="https://example.com/cancel"
+
+
+// FROM THE LAST PRINT OUT JSON RESULT in the command line.
+// COPY THE CHECKOUT SESSION ID and use it in the HTML file.
+
+
+
+ 
